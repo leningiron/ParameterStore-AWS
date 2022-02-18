@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Amazon.Lambda.Core;
+using AwsParameterStore;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
-namespace AwsParameterStore
+namespace AWSLambda1
 {
     public class Function
     {
@@ -21,10 +22,10 @@ namespace AwsParameterStore
         /// <returns></returns>
         public async Task<string> FunctionHandler(string input, ILambdaContext context)
         {
-            AwsParameterStoreClient client = new AwsParameterStoreClient(Amazon.RegionEndpoint.EUWest1);
+            AwsParameterStoreClient client = new AwsParameterStoreClient(Amazon.RegionEndpoint.USEast1);
             try
             {
-                var value = await client.GetValueAsync("Test-Parameter");
+                var value = await client.GetValueAsync("KeyTest");
 
                 context.Logger.Log(value);
 
